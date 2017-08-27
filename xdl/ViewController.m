@@ -13,6 +13,8 @@
 
 @interface ViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *label;
+
 @end
 
 @implementation ViewController
@@ -29,10 +31,27 @@
 }
 
 
+//测试弹出框
+-(IBAction)helloButtonEvent:(UIButton *)sender{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"显示的标题" message:@"标题的提示信息" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        self.label.text = @"取消";
+        NSLog(@"点击取消");
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.label.text = @"点击确认";
+        NSLog(@"点击确认");
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+
 //商户主扫
 -(IBAction)scanButtonEvent:(UIButton *)sender{
-    
-    
     lhScanQCodeViewController *sqVC = [[lhScanQCodeViewController alloc]init];
     sqVC.payChannel = WXPAY;
     
@@ -40,23 +59,6 @@
     [self presentViewController:nVC animated:YES completion:^{
         
     }];
-
-    
-    
- 
-    //[PaySDKModel ]
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"显示的标题" message:@"标题的提示信息" preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"点击取消");
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"点击确认");
-    }]];
-    
-   [self presentViewController:alertController animated:YES completion:nil];
-    
 }
 
 
