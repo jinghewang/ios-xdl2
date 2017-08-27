@@ -18,5 +18,7 @@
 
 -(SDKPayModel *)getPayModel;
 
+-(NSString *)getNowTimestamp;
+
 
 @end

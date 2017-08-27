@@ -66,7 +66,7 @@
     
     SDKPayModel *model = [[HbdLibrary alloc] getPayModel];
     PayChannel payChannel = WXPAY;
-    NSString *orderNo = [NSString stringWithFormat:@"950115140%@",[self getNowTimestamp]];
+    NSString *orderNo = [NSString stringWithFormat:@"950115140%@",[[HbdLibrary alloc] getNowTimestamp]];
     
     
     
@@ -91,46 +91,5 @@
                                             NSLog(@"失败 : %@",message);
                                         }];
 }
-
-
-- (NSString *)getNowTimestamp{
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    
-    [formatter setDateFormat:@"YYYYMMddHHmmss"]; // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
-    
-    //设置时区,这个对于时间的处理有时很重要
-    
-    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Beijing"];
-    
-    [formatter setTimeZone:timeZone];
-    
-    NSDate *datenow = [NSDate date];//现在时间
-    
-    
-    
-    NSLog(@"设备当前的时间:%@",[formatter stringFromDate:datenow]);
-    
-    return [formatter stringFromDate:datenow];
-    //时间转时间戳的方法:
-    //
-    //
-    //
-    //    NSInteger timeSp = [[NSNumber numberWithDouble:[datenow timeIntervalSince1970]] integerValue];
-    //
-    //
-    //
-    //    NSLog(@"设备当前的时间戳:%ld",(long)timeSp); //时间戳的值
-    //
-    //
-    //    
-    //    return timeSp;
-    
-}
-
 
 @end
