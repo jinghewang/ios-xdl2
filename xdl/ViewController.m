@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "SingleSDK.h"
+#import "lhScanQCodeViewController.h"
+#import "HbdLibrary.h"
 
 @interface ViewController ()
 
@@ -29,6 +31,18 @@
 
 //商户主扫
 -(IBAction)scanButtonEvent:(UIButton *)sender{
+    
+    
+    lhScanQCodeViewController *sqVC = [[lhScanQCodeViewController alloc]init];
+    sqVC.payChannel = WXPAY;
+    
+    UINavigationController * nVC = [[UINavigationController alloc]initWithRootViewController:sqVC];
+    [self presentViewController:nVC animated:YES completion:^{
+        
+    }];
+
+    
+    
  
     //[PaySDKModel ]
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"显示的标题" message:@"标题的提示信息" preferredStyle:UIAlertControllerStyleAlert];
@@ -45,27 +59,12 @@
     
 }
 
--(SDKPayModel *)getPayModel{
-    
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"PropertyList" ofType:@"plist"];
-    NSMutableDictionary *data2 = [[NSMutableDictionary alloc] initWithContentsOfFile:filePath];
-    //NSString *orgNo = [data2 valueForKeyPath:@"xdl.orgNo"];
-    
-    SDKPayModel *model = [[SDKPayModel alloc]init];
-    model.orgNo = [data2 valueForKeyPath:@"xdl.orgNo"];//@"1278";
-    model.mercId =[data2 valueForKeyPath:@"xdl.mercId"];// @"800110000000207";
-    model.trmNo = [data2 valueForKeyPath:@"xdl.trmNo"];//@"95011514";
-    model.trmTyp = [[data2 valueForKeyPath:@"xdl.trmTyp"] intValue] ;//1;
-    model.oprId = [data2 valueForKeyPath:@"xdl.oprId"];//@"001";
-    model.txnTime = [self getNowTimestamp];
-    
-    return model;
-}
+
 
 //客户主扫
 -(IBAction)QRCoderPay:(UIButton *)sender{
     
-    SDKPayModel *model = [self getPayModel];
+    SDKPayModel *model = [[HbdLibrary alloc] getPayModel];
     PayChannel payChannel = WXPAY;
     NSString *orderNo = [NSString stringWithFormat:@"950115140%@",[self getNowTimestamp]];
     
